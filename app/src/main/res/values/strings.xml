@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VideoPlayer</string>
+    <string name="video_icon_content_description">Video icon</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="video_list_search_hint">Write at least 3 characters</string>
+    <string name="dismiss">dismiss</string>
 </resources>

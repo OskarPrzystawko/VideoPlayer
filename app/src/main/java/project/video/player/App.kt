@@ -1,4 +1,4 @@
-package project.video.player.app
+package project.video.player
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
