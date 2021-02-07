@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val VIDEO_API_BASE_URL = "http://api.tvmaze.com/"
+const val VIDEO_API_BASE_URL = "https://api.tvmaze.com/"
 
 val repositoryModule = module {
 
