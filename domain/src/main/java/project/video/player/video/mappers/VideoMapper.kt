@@ -11,6 +11,6 @@ fun VideoDto.toVideo(): Video {
     return Video(
         this.show.name,
         this.show.genres,
-        this.show.image.url,
+        this.show.image?.url,
     )
 }

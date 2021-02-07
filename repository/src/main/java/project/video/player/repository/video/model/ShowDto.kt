@@ -11,6 +11,6 @@ data class ShowDto(
     val genres: List<String>,
 
     @SerializedName("image")
-    val image: ImageDto,
+    val image: ImageDto?,
 
 )
