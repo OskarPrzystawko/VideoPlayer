@@ -1,0 +1,25 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    //Modules
+    implementation project(":repository")
+
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //RxJava 3
+    implementation "io.reactivex.rxjava3:rxjava:3.0.0"
+
+    //Koin
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-scope:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+}
