@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
 import project.video.player.common.Event
 import project.video.player.di.VIDEO_SEARCH_DEBOUNCE_TIME_MS
@@ -29,6 +28,7 @@ class VideoListViewModel(
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
+        videoListPublishSubject.onComplete()
     }
 
     fun onSearchPhraseChanged(searchPhrase: String?) {
@@ -44,7 +44,6 @@ class VideoListViewModel(
         val disposable = videoListPublishSubject
             .debounce(VIDEO_SEARCH_DEBOUNCE_TIME_MS, TimeUnit.MILLISECONDS)
             .switchMap { mapStringToVideoListObservable(it) }
-            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 this::onFetchVideoListSuccess,
@@ -53,6 +52,9 @@ class VideoListViewModel(
 
         compositeDisposable.add(disposable)
     }
+
+    fun getVideoListLiveData(): LiveData<List<Video>> = videoListLiveData
+    fun getVideoListErrorLiveData(): LiveData<Event<Throwable>> = videoListErrorLiveData
 
     private fun mapStringToVideoListObservable(searchPhrase: String): Observable<List<Video>> {
         return getVideoListUserCase(searchPhrase)
@@ -65,9 +67,6 @@ class VideoListViewModel(
     private fun fetchVideoList(searchPhrase: String) {
         videoListPublishSubject.onNext(searchPhrase)
     }
-
-    fun getVideoListLiveData(): LiveData<List<Video>> = videoListLiveData
-    fun getVideoListErrorLiveData(): LiveData<Event<Throwable>> = videoListErrorLiveData
 
     private fun onFetchVideoListSuccess(videoList: List<Video>) {
         videoListLiveData.postValue(videoList)
