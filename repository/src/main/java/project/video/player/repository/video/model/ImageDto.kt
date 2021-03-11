@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class ImageDto(
 
     @SerializedName("medium")
-    val url: String,
+    var url: String,
 
 )
